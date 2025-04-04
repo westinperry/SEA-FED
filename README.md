@@ -46,7 +46,7 @@ pip install -e .
 ### Other Information
 The UCSD_Ped2 and UCSD_Ped1 datasets are already included and properly setup in datasets folder.
 Only UCSD_Ped2 was used for testing.
-
+For Best (and Tested) Performance/Results ensure using a CUDA equiped device.
 
 ## Project Structure
 
