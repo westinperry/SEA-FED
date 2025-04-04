@@ -80,7 +80,9 @@ PG-FAD/
 ```
 
 ## Usage
-First, change BASE_PATH in ./run.sh to be 
+⚠️ Replace --ModelName AE with the model you want to use <br>
+--ModelName AE # Baseline model <br>
+--ModelName Gated_AE # to use the gated model.
 To run the entire training pipeline (including federated averaging and testing), execute:
 ```bash
 cd scripts
