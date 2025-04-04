@@ -48,6 +48,7 @@ conda activate PG-FAD
 - process_data.py can be used to pre-process original dataset into required files, then split data into clients, and follow stucture below. Not need, dataset is included in files.<br> <br>
 - For Best (and Tested) Performance/Results ensure using a CUDA equiped device. <br> <br>
 - Project is setup for 4 clients. Using less clients is possible, but alteration of this code is required. <br> <br>
+- Results/Results.xlsx contains data for all graphs produced in figures
 
 ## Project Structure
 
