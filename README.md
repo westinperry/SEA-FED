@@ -114,11 +114,26 @@ python run_demo.py --input data/path/to/input
 ```
 
 ## Results & Visualization
-
-<div align="center">
-  <img src="figures/results.png" width="1400px" alt="PG-FAD Framework">
-  <p><i>Figure: Overview of the PG-FAD framework, demonstrating personalized federated anomaly detection with gated modules.</i></p>
-</div>
+#### (See Figure Folder for Clearer Images)
+Results of Normal FedAvg across 1/5/10 Epochs (Left to Right) for 10 Rounds of Averaging
+<p align="center">
+  <img src="figures/fed1.png" alt="Image 1" width="325" style="margin-right:10px;" />
+  <img src="figures/fed5.png" alt="Image 2" width="325" style="margin-right:10px;" />
+  <img src="figures/fed10.png" alt="Image 3" width="325" />
+</p>
+Results of Normal FedAvg across 1/5/10 Epochs (Left to Right) for 10 Rounds of Averaging
+<p align="center">
+  <img src="figures/pgfed1.png" alt="Image 1" width="325" style="margin-right:10px;" />
+  <img src="figures/pgfed5.png" alt="Image 2" width="325" style="margin-right:10px;" />
+  <img src="figures/pgfed10.png" alt="Image 3" width="325" />
+</p>
+Results of Personalized Gate FedAvg across 1/5/10 Epochs (Left to Right) for 10 Rounds of Averaging
+<p align="center">
+  <img src="figures/avg1.png" alt="Image 1" width="325" style="margin-right:10px;" />
+  <img src="figures/avg5.png" alt="Image 2" width="325" style="margin-right:10px;" />
+  <img src="figures/avg10.png" alt="Image 3" width="325" />
+</p>
+Averages of PG-FedAvg and Normal FedAvg across 1/5/10 Epochs (Left to Right) for 10 Rounds of Averaging
 
 ## Citation
 
