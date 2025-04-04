@@ -36,11 +36,9 @@ cd PG-FAD
 ### Create and activate conda environment
 ```bash
 conda env create -f environment.yml
-conda activate PG-FAD
 ```
-### Install additional dependencies if any
 ```bash
-pip install -e .
+conda activate PG-FAD
 ```
 
 ### Other Information
@@ -78,6 +76,7 @@ PG-FAD/
 ```
 
 ## Usage
+First, change BASE_PATH in ./run.sh to be 
 To run the entire training pipeline (including federated averaging and testing), execute:
 ```bash
 cd scripts
