@@ -8,7 +8,7 @@ def preprocess_images():
     print("Starting image preprocessing...")
     
     # Paths
-    data_root_path = '/home/westin/Documents/Code/'
+    data_root_path = 'path/above/datasets'
     in_path = os.path.join(data_root_path, 'datasets/UCSD_Anomaly_Dataset.v1p2/UCSDped2/')  # Matches visible UCSDped1
     out_path = os.path.join(data_root_path, 'datasets/processed/UCSD_P2_256/')  # Output for UCSDped1
     
