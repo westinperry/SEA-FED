@@ -16,3 +16,4 @@ dependencies:
   - matplotlib=3.8.0
   - scikit-image=0.22.0
   - pytorch-cuda=12.1
+  - tensorboard
