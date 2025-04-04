@@ -1,0 +1,9 @@
+conda env update -f environment.yml --prune
+
+conda env create -f environment.yml
+
+python script_training.py --ModelRoot ./models/test/ --EpochNum 1 --BatchSize 6 --UseCUDA False
+
+python script_testing.py --ModelFilePath models/test/AE_final.pt
+
+
