@@ -3,7 +3,7 @@
 # Configuration
 ROUNDS=1
 EPOCH=1
-BASE_PATH="/media/westin/4EDCAC80DCAC6445/FAD/models"
+BASE_PATH="./models"
 DATASET=UCSD_P2_256
 MODEL_NAME="AE"   # AE or Gated_AE
 
