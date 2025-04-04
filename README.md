@@ -1,9 +1,9 @@
 # PG-FAD  
 The project explores the application of federated learning techniques with a personalized approach, leveraging gating mechanisms to enhance anomaly detection across distributed systems.
 
-**Westin Perry**
-Rochester Institute of Technology
-wcp9372@g.rit.edu
+<div>**Westin Perry**</div>
+<div>Rochester Institute of Technology</div>
+<div>wcp9372@g.rit.edu</div>
 
 <div align="center">
   <img src="figures/test.png" width="800px" alt="PG-FAD Framework">
