@@ -42,9 +42,12 @@ conda activate PG-FAD
 ```
 
 ### Other Information
-The UCSD_Ped2 and UCSD_Ped1 datasets are already included and properly setup in datasets folder.
-Only UCSD_Ped2 was used for testing.
-For Best (and Tested) Performance/Results ensure using a CUDA equiped device.
+- The UCSD_Ped2 and UCSD_Ped1 datasets are already included and properly setup in datasets folder. <br> <br>
+- Only UCSD_Ped2 was used for testing. <br> <br>
+- Dataset is avaliable from <href>http://www.svcl.ucsd.edu/projects/anomaly/dataset.htm <br> <br>
+- process.py can be used to pre-process original dataset into required files, then split data into clients, and follow stucture below. <br> <br>
+- For Best (and Tested) Performance/Results ensure using a CUDA equiped device. <br> <br>
+- Project is setup for 4 clients. Using less clients is possible, but alteration of this code is required. <br> <br>
 
 ## Project Structure
 
