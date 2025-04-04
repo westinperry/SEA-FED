@@ -3,8 +3,8 @@
 # Configuration
 ROUNDS=1
 EPOCH=1
-BASE_PATH="./models"
-DATASET=UCSD_P2_256
+BASE_PATH="../models"
+DATASET="UCSD_P2_256"
 MODEL_NAME="AE"   # AE or Gated_AE
 
 # Iterate over rounds
@@ -17,11 +17,11 @@ for ROUND in $(seq 1 $ROUNDS); do
         for CLIENT in 1 2 3 4; do
             echo "Training client $CLIENT from scratch"
             python script_training.py \
-                --ModelRoot "${BASE_PATH}/client_${CLIENT}/" \
-                --OutputFile "${BASE_PATH}/client_${CLIENT}/client${CLIENT}_local1.pt" \
+                --ModelRoot "${BASE_PATH}/client_${CLIENT}" \
+                --OutputFile "client${CLIENT}_local1.pt" \
                 --EpochNum $EPOCH \
                 --BatchSize 6 \
-                --DataRoot "../datasets/processed_${CLIENT}/" \
+                --DataRoot "../datasets/processed_${CLIENT}" \
                 --Dataset $DATASET \
                 --TextLogInterval 10 \
                 --IsTbLog False \
@@ -36,12 +36,12 @@ for ROUND in $(seq 1 $ROUNDS); do
             fi
             echo "Training client $CLIENT resuming from $RESUME_PATH"
             python script_training.py \
-                --ModelRoot "${BASE_PATH}/client_${CLIENT}/" \
-                --OutputFile "${BASE_PATH}/client_${CLIENT}/client${CLIENT}_local${ROUND}.pt" \
+                --ModelRoot "${BASE_PATH}/client_${CLIENT}" \
+                --OutputFile "client${CLIENT}_local${ROUND}.pt" \
                 --ResumePath "$RESUME_PATH" \
                 --EpochNum $EPOCH \
                 --BatchSize 6 \
-                --DataRoot "../datasets/processed_${CLIENT}/" \
+                --DataRoot "../datasets/processed_${CLIENT}" \
                 --Dataset $DATASET \
                 --TextLogInterval 10 \
                 --IsTbLog False \
@@ -71,7 +71,6 @@ for ROUND in $(seq 1 $ROUNDS); do
 
     # Testing Phase
     echo "Testing clients for Round $ROUND"
-    # Write results into the ../results folder (assumes 'results' is a sibling of 'scripts')
     echo "Round $ROUND" >> ../results/results.txt
     for CLIENT in 1 2 3 4; do
         MODEL_PATH="${BASE_PATH}/client_${CLIENT}/client${CLIENT}_combined${ROUND}.pt"
@@ -82,10 +81,9 @@ for ROUND in $(seq 1 $ROUNDS); do
         echo "Testing client $CLIENT with model $MODEL_PATH"
         python script_testing.py \
             --ModelFilePath "$MODEL_PATH" \
-            --DataRoot "../datasets/processed_${CLIENT}/" \
+            --DataRoot "../datasets/processed_${CLIENT}" \
             --Dataset $DATASET \
             --ModelName $MODEL_NAME
     done
     echo "==== Finished Round $ROUND ===="
 done
-
