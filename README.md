@@ -101,6 +101,32 @@ This script will:
 python script_training.py --DataRoot ../data --ModelRoot ../models --OutputFile final_model.pt --ModelName AE
 ```
 (Replace --ModelName AE with --ModelName Gated_AE to use the gated model. AE was used as baseline.)
+Example:
+```bash
+python script_training.py \
+    --ModelRoot "../models/client_1" \
+    --OutputFile "client1_local1.pt" \
+    --DataRoot "../datasets/processed_1" \
+    --Dataset "UCSD_P2_256" \
+    --EpochNum 1 \
+    --BatchSize 6 \
+    --TextLogInterval 10 \
+    --IsTbLog False \
+    --ModelName "AE" \
+    --UseCUDA True \
+    --Seed 42 \
+    --IsDeter True \
+    --LR 0.001
+```
+
+#### Direct Python FedAvg Command:
+```bash
+python script_fedavg.py \
+    --input-paths ../models/client_1/client1_local1.pt ../models/client_2/client2_local1.pt ../models/client_3/client3_local1.pt ../models/client_4/client4_local1.pt \
+    --output-paths ../models/client_1/client1_combined1.pt ../models/client_2/client2_combined1.pt ../models/client_3/client3_combined1.pt ../models/client_4/client4_combined1.pt \
+    --ModelName "AE"
+```
+⚠️ Will fail if using incorrect model names!
 
 ### Evaluation
 #### Direct Python Evaluation Command:
@@ -111,6 +137,15 @@ Run the evaluation script to compute ROC curves and AUC scores:
 python script_testing.py --DataRoot ../data --Dataset UCSD_P2_256 --ModelFilePath ../models/final_model.pt --ModelName AE
 ```
 The evaluation outputs (plots, results.txt, etc.) are saved to the results/ folder (located one directory above the scripts folder).
+
+Example:
+```bash
+python script_testing.py \
+    --ModelFilePath "../models/client_1/client1_combined1.pt" \
+    --DataRoot "../datasets/processed_1" \
+    --Dataset "UCSD_P2_256" \
+    --ModelName "AE"
+```
 
 The evaluation script will compute the ROC curve, AUC score, and save the corresponding plots and logs under the results/ directory. 
 ⚠️ Note: The ROC curve will only be saved for the latest model evaluated (others will be overwritten)
