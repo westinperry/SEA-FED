@@ -128,18 +128,18 @@ Results will be in the results/results.txt file. You can also re-run using eithe
 #### (See Figure Folder for 5 Epoch Results)
 Results of Normal FedAvg across 1/10 Epochs (Left to Right) for 10 Rounds of Averaging
 <p align="center">
-  <img src="figures/fed1.png" alt="fed1" width="500" />
-  <img src="figures/fed10.png" alt="fed10" width="500" />
+  <img src="figures/fed1.png" alt="fed1" width="450" />
+  <img src="figures/fed10.png" alt="fed10" width="450" />
 </p>
 Results of Normal FedAvg across 1/10 Epochs (Left to Right) for 10 Rounds of Averaging
 <p align="center">
-  <img src="figures/pgfed1.png" alt="pgfed1" width="500" />
-  <img src="figures/pgfed10.png" alt="pgfed10" width="500" />
+  <img src="figures/pgfed1.png" alt="pgfed1" width="450" />
+  <img src="figures/pgfed10.png" alt="pgfed10" width="450" />
 </p>
 Results of Personalized Gate FedAvg across 1/10 Epochs (Left to Right) for 10 Rounds of Averaging
 <p align="center">
-  <img src="figures/avg1.png" alt="avg1" width="500" />
-  <img src="figures/avg10.png" alt="avg10" width="500" />
+  <img src="figures/avg1.png" alt="avg1" width="450" />
+  <img src="figures/avg10.png" alt="avg10" width="450" />
 </p>
 Averages of PG-FedAvg and Normal FedAvg across 1/10 Epochs (Left to Right) for 10 Rounds of Averaging
 
