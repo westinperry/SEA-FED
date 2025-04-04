@@ -4,26 +4,27 @@ The project explores the application of federated learning techniques with a per
 <ins>[Westin Perry](mailto:wcp9372@g.rit.edu)</ins>
 
 <div align="center">
-<img src="figures/test.png" width="800px">
-<p><i>Figure: Overview of the PG-FAD framework, demonstrating personalized federated anomaly detection with gated modules.</i></p>
+  <img src="figures/test.png" width="800px" alt="PG-FAD Framework">
+  <p><i>Figure: Overview of the PG-FAD framework, demonstrating personalized federated anomaly detection with gated modules.</i></p>
 </div>
 
 ## 📋 Table of Contents
-- [PG-FAD](#pg-fad)
-  - [📋 Table of Contents](#-table-of-contents)
-  - [Installation](#installation)
-    - [Clone the repository](#clone-the-repository)
-    - [Create and activate conda environment](#create-and-activate-conda-environment)
-    - [Install additional dependencies](#install-additional-dependencies)
-  - [Project Structure](#project-structure)
-  - [Usage](#usage)
-    - [Training](#training)
-    - [Evaluation](#evaluation)
-  - [Demo](#demo)
-  - [Results & Visualization](#results--visualization)
-  - [Model Card](#model-card)
-  - [Citation](#citation)
-  - [License](#license)
+- [🚀 PG-FAD](#pg-fad)
+  - [📚 Table of Contents](#-table-of-contents)
+  - [🔧 Installation](#installation)
+    - [📥 Clone the repository](#clone-the-repository)
+    - [🛠️ Create and activate conda environment](#create-and-activate-conda-environment)
+    - [📦 Install additional dependencies](#install-additional-dependencies)
+  - [🗂️ Project Structure](#project-structure)
+  - [⚙️ Usage](#usage)
+    - [🏋️‍♂️ Training](#training)
+    - [📊 Evaluation](#evaluation)
+  - [🎥 Demo](#demo)
+  - [📈 Results & Visualization](#results--visualization)
+  - [📝 Model Card](#model-card)
+  - [🔖 Citation](#citation)
+  - [💡 Acknowledgments](#acknowledgments)
+  - [📜 License](#license)
 
 ## Installation
 
@@ -70,30 +71,25 @@ PG-FAD/
 ## Usage
 
 ### Training
-To Run everything use:
+To run the entire training pipeline (including federated averaging and testing), execute:
 ```bash
 cd scripts
 ./run.sh
 ```
+This script will:
 <ul>
-<li>This script will:</li>
-<li></li>
-<li>    Train each client (from scratch or resume from checkpoints).</li>
-<li></li>
-<li>    Perform federated averaging.</li>
-<li></li>
-<li>    Run the testing phase.</li>
-<li></li>
-<li>    Save all outputs (checkpoints, logs, and results) in the appropriate folders.</li>
-<li>  ⚠️ Adjust the Epoch # (for each client) and Round # (Number of times clients are trained, then FedAvged (with or without gates)) </li>
+<li>Train each client (from scratch or resume from checkpoints) 🏋️‍♂️</li>
+<li>Perform federated averaging 🔄</li>
+<li>Run the testing phase 📊</li>
+<li>Save all outputs (checkpoints, logs, and results) in the appropriate folders 📁</li>
+<li>⚠️ Note: Adjust the Epoch # (for each client) and Round # (number of times clients are trained, then FedAvged—with or without gates) as needed</li>
 </ul>
 
 #### Direct Python Training command:
 ```bash
 python script_training.py --DataRoot ../data --ModelRoot ../models --OutputFile final_model.pt --ModelName AE
 ```
-(Replace --ModelName AE with --ModelName Gated_AE to use the gated model.)
-AE was used as baseline.
+(Replace --ModelName AE with --ModelName Gated_AE to use the gated model. AE was used as baseline.)
 
 #### Direct Python Evaluation Command:
 
@@ -103,6 +99,10 @@ Run the evaluation script to compute ROC curves and AUC scores:
 python script_testing.py --DataRoot ../data --Dataset UCSD_P2_256 --ModelFilePath ../models/final_model.pt --ModelName AE
 ```
 The evaluation outputs (plots, results.txt, etc.) are saved to the results/ folder (located one directory above the scripts folder).
+
+### Evaluation
+The evaluation script will compute the ROC curve, AUC score, and save the corresponding plots and logs under the results/ directory. 
+⚠️ Note: The ROC curve will only be saved for the latest model evaluated (others will be overwritten)
 
 ## Demo
 
@@ -123,7 +123,6 @@ python run_demo.py --input data/path/to/input
 | Precision | X% |
 | Recall | X% |
 
-
 ## Citation
 
 If you use this code in your research, please cite:
@@ -134,7 +133,7 @@ If you use this code in your research, please cite:
   title="PG-FAD: Personalized Federated Anomaly Detection with Gated Modules",
   author="Westin Perry",
   institution="Rochester Institute of Technology",
-  year="202x"
+  year="2025"
 }
 ```
 ## Acknowledgments
@@ -150,6 +149,7 @@ Below is the citation for their work:
   booktitle={IEEE International Conference on Computer Vision (ICCV)},
   year={2019}
 }
+```
 
 ## License
 
