@@ -140,6 +140,13 @@ Results of Personalized Gate FedAvg across 1/10 Epochs (Left to Right) for 10 Ro
 </p>
 Averages of PG-FedAvg and Normal FedAvg across 1/10 Epochs (Left to Right) for 10 Rounds of Averaging
 
+## Remove Environment
+
+```bach
+conda deactivate
+conda env remove --name PG-FAD
+```
+
 ## Citation
 
 If you use this code in your research, please cite:
