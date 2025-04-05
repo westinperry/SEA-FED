@@ -198,7 +198,7 @@ python script_testing.py \
     --ModelName "AE"
 ```
 
-The evaluation script will compute the ROC curve, AUC score, and save the corresponding plots and logs under the results/ directory. 
+The evaluation script will compute the ROC curve, AUC score, and save the corresponding plots and logs under the results/ directory. <br>
 ⚠️ Note: The ROC curve will only be saved for the latest model evaluated (others will be overwritten)
 
 ## Demo
@@ -213,13 +213,13 @@ This command does the following:
     --model_name: Selects the model architecture (e.g., AE for AutoEncoder).
     --use_cuda: Enables GPU acceleration if available.
     --frames: Displays the anomaly corresponding to the global index 177 (i.e., the 178th file in sorted order). Also, displayed normalized score.
-    --no_plot: Does not display plots of 'frame'
-⚠️ Note: Must point to folder of indivudial frames in formate 001.jpg, 002.jpg, ... <br>
-Can also be in formate of .jpg, .jpeg, .png, .tif, .tiff
+    --no_plot: Does not display plots of 'frame'<br>
+⚠️ Note: Must point to folder of indivudial frames, using an increasing naming convention format 001.jpg, 002.jpg, ... <br>
+Can also be in formate of .jpg, .jpeg, .png, .tif, .tiff<br><br>
 
 
-You can run a demo by adjusting the EPOCH and ROUNDS to 1 in the ./scripts/run.sh file.
-This will make each client to train for 1 epoch, average all clients, then evalue each client.
+You can also run a training/testing demo by adjusting the EPOCH and ROUNDS to 1 in the ./scripts/run.sh file.<br>
+This will make each client to train for 1 epoch, average all clients, then evalue each client.<br>
 Results will be in the results/results.txt file. <br>
 You can also re-run using either MODEL_NAME "AE" for baseline or "Gated_AE" for Personalized Gated Federated Learning
 
