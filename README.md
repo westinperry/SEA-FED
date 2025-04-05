@@ -196,7 +196,7 @@ The evaluation script will compute the ROC curve, AUC score, and save the corres
 ⚠️ Note: The ROC curve will only be saved for the latest model evaluated (others will be overwritten)
 
 ## Demo
-Run the Test.py script with the following command-line arguments to analyze anomalies on a specific dataset. For example:
+Run the test.py script with the following command-line arguments to analyze anomalies on a specific dataset. For example:
 
 ```bash
 python scripts/test.py --eval_folder datasets/processed_2/UCSD_P2_256/Test/Test004 --resume_path models/client_2/client2_combined1.pt --model_name AE --use_cuda --frames 177
