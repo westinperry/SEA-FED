@@ -30,6 +30,20 @@ The project explores the application of federated learning techniques with a per
   - [💡 Acknowledgments](#acknowledgments)
   - [📜 License](#license)
 
+## Requirements
+  - python=3.10
+  - pytorch=2.1.0
+  - torchvision=0.16.0
+  - torchaudio=2.1.0
+  - numpy=1.26.0
+  - scipy=1.11.0
+  - scikit-learn=1.3.0
+  - pillow=10.0.0
+  - matplotlib=3.8.0
+  - scikit-image=0.22.0
+  - pytorch-cuda=12.1
+  - tensorboard <br>
+(All created with conda environment)
 ## Installation
 
 ### Clone the repository
