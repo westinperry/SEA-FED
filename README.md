@@ -4,7 +4,11 @@ The project explores the application of federated learning techniques with a per
 <p><strong>Author:</strong> Westin Perry<br /><strong>College:</strong> Rochester Institute of Technology<br /><strong>Email:</strong> wcp9372@g.rit.edu</p>
 <div align="center">
   <img src="figures/PG-FAD_model.png" width="1000px" alt="PG-FAD Framework">
-  <p><i>Figure: Overview of the PG-FAD framework, demonstrating personalized federated anomaly detection with gated modules.</i></p>
+  <p><i>Figure: Overview of the PG-FAD framework, demonstrating personalized federated anomaly detection.</i></p>
+</div>
+<div align="center">
+  <img src="figures/PG-FAD_model.png" width="900px" alt="Fed Cycle">
+  <p><i>Figure: Overview of Federated Learning Cycle</i></p>
 </div>
 
 ## 📋 Table of Contents
