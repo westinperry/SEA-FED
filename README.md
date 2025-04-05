@@ -185,7 +185,8 @@ The evaluation script will compute the ROC curve, AUC score, and save the corres
 
 You can run a demo by adjusting the EPOCH and ROUNDS to 1 in the ./scripts/run.sh file.
 This will make each client to train for 1 epoch, average all clients, then evalue each client.
-Results will be in the results/results.txt file. You can also re-run using either MODEL_NAME "AE" for baseline or "Gated_AE" for Personalized Gated Federated Learning
+Results will be in the results/results.txt file. <br>
+You can also re-run using either MODEL_NAME "AE" for baseline or "Gated_AE" for Personalized Gated Federated Learning
 
 ```bash
 ./run.sh
