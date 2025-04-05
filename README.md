@@ -196,6 +196,21 @@ The evaluation script will compute the ROC curve, AUC score, and save the corres
 ⚠️ Note: The ROC curve will only be saved for the latest model evaluated (others will be overwritten)
 
 ## Demo
+Run the Test.py script with the following command-line arguments to analyze anomalies on a specific dataset. For example:
+
+```bash
+python scripts/test.py --eval_folder datasets/processed_2/UCSD_P2_256/Test/Test004 --resume_path models/client_2/client2_combined1.pt --model_name AE --use_cuda --frames 177
+```
+This command does the following:
+    --eval_folder: Specifies the folder containing the test images.
+    --resume_path: Points to the trained model checkpoint.
+    --model_name: Selects the model architecture (e.g., AE for AutoEncoder).
+    --use_cuda: Enables GPU acceleration if available.
+    --frames: Displays the anomaly corresponding to the global index 177 (i.e., the 178th file in sorted order). Also, displayed normalized score.
+    --no_plot: Does not display plots of 'frame'
+⚠️ Note: Must point to folder of indivudial frames in formate 001.jpg, 002.jpg, ... <br>
+Can also be in formate of .jpg, .jpeg, .png, .tif, .tiff
+
 
 You can run a demo by adjusting the EPOCH and ROUNDS to 1 in the ./scripts/run.sh file.
 This will make each client to train for 1 epoch, average all clients, then evalue each client.
