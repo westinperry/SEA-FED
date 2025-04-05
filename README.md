@@ -194,7 +194,8 @@ You can also re-run using either MODEL_NAME "AE" for baseline or "Gated_AE" for 
 
 ## Results & Visualization
 #### (See Figure Folder for 5 Epoch Results)
-Results of Normal FedAvg across 1/10 Epochs (Left to Right) for 10 Rounds of Averaging
+Below are results from running both Normal FedAvg and Personalized Gate FedAvg:
+<br>
 <p align="center">
   <img src="figures/fed1.png" alt="fed1" width="400" />
   <img src="figures/fed10.png" alt="fed10" width="400" />
