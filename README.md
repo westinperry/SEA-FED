@@ -189,6 +189,8 @@ Averages of PG-FedAvg and Normal FedAvg across 1/10 Epochs (Left to Right) for 1
 
 ```bach
 conda deactivate
+```
+```bach
 conda env remove --name PG-FAD
 ```
 
