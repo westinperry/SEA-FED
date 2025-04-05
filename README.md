@@ -7,9 +7,10 @@ The project explores the application of federated learning techniques with a per
   <p><i>Figure: Overview of the PG-FAD framework, demonstrating personalized federated anomaly detection.</i></p>
 </div>
 <div align="center">
-  <img src="figures/PG-FAD_model.png" width="900px" alt="Fed Cycle">
+  <img src="figures/FedCycle.png" style=width="1000px"; max-width="none"; alt="Fed Cycle">
   <p><i>Figure: Overview of Federated Learning Cycle</i></p>
 </div>
+
 
 ## 📋 Table of Contents
 - [🚀 PG-FAD](#pg-fad)
