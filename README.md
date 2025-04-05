@@ -46,13 +46,38 @@ conda activate PG-FAD
 ```
 
 ### Other Information
-- The UCSD_Ped2 and UCSD_Ped1 datasets are already included and properly setup in datasets folder. <br> <br>
-- Only UCSD_Ped2 was used for testing. <br> <br>
-- Dataset is avaliable from <href>http://www.svcl.ucsd.edu/projects/anomaly/dataset.htm <br> <br>
-- process_data.py can be used to pre-process original dataset into required files, then split data into clients, and follow stucture below. Not need, dataset is included in files.<br> <br>
-- For Best (and Tested) Performance/Results ensure using a CUDA equiped device. <br> <br>
-- Project is setup for 4 clients. Using less clients is possible, but alteration of this code is required. <br> <br>
-- Results/Results.xlsx contains data for all graphs produced in figures
+<ul>
+<li>The UCSD_Ped2 and UCSD_Ped1 datasets are already included and properly setup in datasets folder. </li>
+<li>Only UCSD_Ped2 was used for testing.</li>
+<li>Dataset is avaliable from <href>http://www.svcl.ucsd.edu/projects/anomaly/dataset.htm</href> </li>
+<li>process_data.py can be used to pre-process original dataset into required files, then split data into clients, and follow stucture below. Not need, dataset is included in files.</li>
+<li>For Best (and Tested) Performance/Results ensure using a CUDA equiped device.</li>
+<li>Project is setup for 4 clients. Using less clients is possible, but alteration of this code is required.</li>
+<li>Results/Results.xlsx contains data for all graphs produced in figures</li>
+  <li>UCSD_Ped2 was processed, 16 training videos and 12 test videos were split accoringly:</li>
+  <ul>
+<li>Client 1</li>
+  <ul>
+    <li>Training: 1-4</li>
+    <li>Testing:  1-3</li>
+  </ul>
+<li>Client 2</li>
+  <ul>
+    <li>Training: 5-8</li>
+    <li>Testing:  4-6</li>
+  </ul>
+<li>Client 3</li>
+  <ul>
+    <li>Training: 9-12</li>
+    <li>Testing:  7-9</li>
+  </ul>
+<li>Client 4</li>
+  <ul>
+    <li>Training: 13-16</li>
+    <li>Testing:  10-12</li>
+  </ul>
+</ul>
+
 
 ## Project Structure
 
