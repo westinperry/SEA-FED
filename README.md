@@ -1,11 +1,17 @@
 # PG-FAD - Personalized Gates for Federated Anomaly Detection
 The project explores the application of federated learning techniques with a personalized approach, leveraging gating mechanisms to enhance anomaly detection across distributed systems.
 
-<p><strong>Author:</strong> Westin Perry<br /><strong>College:</strong> Rochester Institute of Technology<br /><strong>Email:</strong> wcp9372@g.rit.edu</p>
+<p padding-bottom="0px"><strong>Author:</strong> Westin Perry <strong>College:</strong> Rochester Institute of Technology <strong>Email:</strong> wcp9372@g.rit.edu</p>
+
 <div align="center">
+  <img src="figures/Title.png" width="200%" alt="Title" padding="0px">
+</div>
+
+<div align="center" padding="0">
   <img src="figures/PG-FAD_model.png" width="1000px" alt="PG-FAD Framework">
   <p><i>Figure: Overview of the PG-FAD framework, demonstrating personalized federated anomaly detection.</i></p>
 </div>
+
 <div align="center">
   <img src="figures/FedCycle.png" width="200%" alt="Fed Cycle">
   <p><i>Figure: Overview of Federated Learning Cycle</i></p>
