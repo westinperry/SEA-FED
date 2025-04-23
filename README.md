@@ -1,5 +1,14 @@
 # PG-FAD - Personalized Gates for Federated Anomaly Detection
-The project explores the application of federated learning techniques with a personalized approach, leveraging gating mechanisms to enhance anomaly detection across distributed systems.
+#### Abstract \\
+With the growing demand for privacy-preserving AI systems, federated learning (FL) has emerged as a promising solution, enabling decentralized model training without sharing raw data. However, traditional FL methods such as Federated Averaging (FedAvg) face significant challenges in video anomaly detection, particularly in scenarios involving non-identically distributed (non-IID) client data. This includes variations in lighting, camera angles, or subject density across surveillance footage, which can severely limit the ability of a globally averaged model to accurately detect anomalies.
+
+To address these limitations, we propose SEA-Fed: a federated 3D convolutional autoencoder enhanced with both global attention mechanisms and local personalization modules. Our model incorporates globally shared Squeeze-and-Excitation (SE) blocks within the encoder to apply channel-wise attention, emphasizing semantically important features during training. To complement this, we integrate lightweight, client-specific 3D adapters that specialize the model to each client's data distribution while maintaining privacy by keeping adapter weights local.
+
+We evaluate SEA-Fed against FedAvg on the UCSD Ped2 dataset across multiple local training regimes (1, 5, and 10 epochs). SEA-Fed consistently achieves higher anomaly detection accuracy, especially in early rounds, reaching +42% AUC improvement in the 1-epoch setting and +0.42% gain after 10 epochs. Importantly, this performance boost comes at a minimal computational cost — only a 2.6% increase in model parameters.
+
+SEA-Fed demonstrates that combining global feature attention with localized adaptation leads to more accurate, communication-efficient, and deployable federated models for real-time video anomaly detection in privacy-sensitive environments.
+#### Keywords \\
+Federated Learning, Video Anomaly Detection, 3D Convolutional Autoencoder, Squeeze-and-Excitation Networks, Model Personalization
 
 <p padding-bottom="0px"><strong>Author:</strong> Westin Perry <strong>College:</strong> Rochester Institute of Technology <strong>Email:</strong> wcp9372@g.rit.edu</p>
 
