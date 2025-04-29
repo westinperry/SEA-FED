@@ -1,1 +1,0 @@
-Round 6, Client 2: AUC=0.9050
