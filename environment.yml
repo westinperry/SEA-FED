@@ -1,4 +1,4 @@
-name: PG-FAD
+name: SEA-FED
 channels:
   - pytorch
   - nvidia

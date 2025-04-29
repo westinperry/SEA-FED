@@ -1,1 +1,1 @@
-Round 6, Client 3: AUC=0.9043
+Round 6, Client 3: AUC=0.9051

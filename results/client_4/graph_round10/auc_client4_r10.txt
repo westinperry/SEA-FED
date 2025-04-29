@@ -1,1 +1,1 @@
-Round 10, Client 4: AUC=0.9075
+Round 10, Client 4: AUC=0.9040

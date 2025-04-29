@@ -1,22 +1,22 @@
 #!/bin/bash
 
 # ┌─────────────────────────────────────────────────────┐
-# │           GLOBAL CONFIGURATION                     │
+# │           GLOBAL CONFIGURATION                      │
 # └─────────────────────────────────────────────────────┘
 ROUNDS=10
-EPOCH=10
+EPOCH=1
 BASE_PATH="../models"
 DATASET="UCSD_P2_256"
-MODEL_NAME="Gated_AE"      # AE or Gated_AE
+MODEL_NAME="AE"      # AE or Gated_AE
 BATCH_SIZE=6
 TEXT_LOG_INT=10
 TB_LOG=False
-START_ROUND=5
+START_ROUND=1
 
 PYTHON_BIN=$(which python)
 
 # ┌─────────────────────────────────────────────────────┐
-# │               MAIN LOOP                            │
+# │               MAIN LOOP                              │
 # └─────────────────────────────────────────────────────┘
 for ROUND in $(seq $START_ROUND $ROUNDS); do
     echo "==== Starting Round $ROUND ===="
@@ -28,6 +28,7 @@ for ROUND in $(seq $START_ROUND $ROUNDS); do
         if [ "$ROUND" -eq 1 ]; then
             echo "→ [Train] Client $CLIENT round $ROUND from scratch"
             "$PYTHON_BIN" script_training.py \
+                --Mode train \
                 --ModelRoot "${BASE_PATH}/client_${CLIENT}" \
                 --OutputFile "client${CLIENT}_local${ROUND}.pt" \
                 --EpochNum $EPOCH \
@@ -38,7 +39,9 @@ for ROUND in $(seq $START_ROUND $ROUNDS); do
                 --IsTbLog $TB_LOG \
                 --ModelName $MODEL_NAME \
                 --PlotGraph True \
-                --Round $ROUND
+                --Round $ROUND \
+                --ClientID $CLIENT \
+                --IsSaveSEAdapter True
         else
             PREV_ROUND=$((ROUND - 1))
             RESUME="${BASE_PATH}/client_${CLIENT}/client${CLIENT}_combined${PREV_ROUND}.pt"
@@ -48,6 +51,7 @@ for ROUND in $(seq $START_ROUND $ROUNDS); do
             fi
             echo "→ [Train] Client $CLIENT round $ROUND resuming from $RESUME"
             "$PYTHON_BIN" script_training.py \
+                --Mode train \
                 --ModelRoot "${BASE_PATH}/client_${CLIENT}" \
                 --OutputFile "client${CLIENT}_local${ROUND}.pt" \
                 --ResumePath "$RESUME" \
@@ -60,7 +64,9 @@ for ROUND in $(seq $START_ROUND $ROUNDS); do
                 --IsTbLog $TB_LOG \
                 --ModelName $MODEL_NAME \
                 --PlotGraph True \
-                --Round $ROUND
+                --Round $ROUND \
+                --ClientID $CLIENT \
+                --IsSaveSEAdapter True
         fi
     done
 
@@ -88,31 +94,55 @@ for ROUND in $(seq $START_ROUND $ROUNDS); do
         --Channels 1
 
     # -----------------------
-    # 3) Testing
+    # 2b) Save features from Combined Models
     # -----------------------
-    echo "→ [Test] evaluating aggregated models (round $ROUND)"
-    echo "Round $ROUND" >> ../results/results.txt
+    echo "→ [Save] SE/Adapter/Latents from Combined Models (round $ROUND)"
 
-    if [ "$MODEL_NAME" == "AE" ]; then
-        CLIENTS=(1)
-    else
-        CLIENTS=(1 2 3 4)
-    fi
-
-    for CLIENT in "${CLIENTS[@]}"; do
+    for CLIENT in 1 2 3 4; do
         MODEL="${BASE_PATH}/client_${CLIENT}/client${CLIENT}_combined${ROUND}.pt"
         if [ ! -f "$MODEL" ]; then
             echo "❌ Missing $MODEL" >&2
             exit 1
         fi
-        echo "   • Client $CLIENT → $MODEL"
-        "$PYTHON_BIN" script_testing.py \
+
+        echo "   • Client $CLIENT → Saving Combined Model Features"
+        "$PYTHON_BIN" script_save_features.py \
+            --Mode eval \
             --ModelFilePath "$MODEL" \
             --DataRoot "../datasets/processed_${CLIENT}" \
             --Dataset $DATASET \
             --ModelName $MODEL_NAME \
-            --Round $ROUND
+            --Round $ROUND \
+            --ClientID $CLIENT
     done
+
+    # -----------------------
+    # 3) Testing
+    # -----------------------
+    # echo "→ [Test] evaluating aggregated models (round $ROUND)"
+    # echo "Round $ROUND" >> ../results/results.txt
+
+    # if [ "$MODEL_NAME" == "AE" ]; then
+    #     CLIENTS=(1)
+    # else
+    #     CLIENTS=(1 2 3 4)
+    # fi
+
+    # for CLIENT in "${CLIENTS[@]}"; do
+    #     MODEL="${BASE_PATH}/client_${CLIENT}/client${CLIENT}_combined${ROUND}.pt"
+    #     if [ ! -f "$MODEL" ]; then
+    #         echo "❌ Missing $MODEL" >&2
+    #         exit 1
+    #     fi
+    #     echo "   • Client $CLIENT → $MODEL"
+    #     "$PYTHON_BIN" script_testing.py \
+    #         --Mode eval \
+    #         --ModelFilePath "$MODEL" \
+    #         --DataRoot "../datasets/processed_${CLIENT}" \
+    #         --Dataset $DATASET \
+    #         --ModelName $MODEL_NAME \
+    #         --Round $ROUND
+    # done
 
     echo "==== Finished Round $ROUND ===="
 done

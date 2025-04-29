@@ -45,6 +45,12 @@ class TrainOptions():
         parser.add_argument('--ResumePath', type=str, default='', help='Path to model checkpoint')
         parser.add_argument('--Round', type=int, help='RoundNumber')
 
+        parser.add_argument('--IsSaveSEAdapter', type=str2bool, default=False, help='Save SEBlock and Adapter features during training')
+        parser.add_argument('--ClientID', type=int, default=0, help='Client ID for saving personalized features')
+
+        parser.add_argument('--Mode', type=str, choices=['train', 'eval'], required=True, help='train or eval')
+
+
         self.initialized = True
         self.parser = parser
         return parser
