@@ -1,89 +1,118 @@
 #!/bin/bash
 
-# Configuration
-ROUNDS=1
-EPOCH=1
+# ┌─────────────────────────────────────────────────────┐
+# │           GLOBAL CONFIGURATION                     │
+# └─────────────────────────────────────────────────────┘
+ROUNDS=10
+EPOCH=10
 BASE_PATH="../models"
 DATASET="UCSD_P2_256"
-MODEL_NAME="AE"   # AE or Gated_AE
+MODEL_NAME="Gated_AE"      # AE or Gated_AE
+BATCH_SIZE=6
+TEXT_LOG_INT=10
+TB_LOG=False
+START_ROUND=5
 
-# Iterate over rounds
-for ROUND in $(seq 1 $ROUNDS); do
-    PREV=$((ROUND - 1))
+PYTHON_BIN=$(which python)
+
+# ┌─────────────────────────────────────────────────────┐
+# │               MAIN LOOP                            │
+# └─────────────────────────────────────────────────────┘
+for ROUND in $(seq $START_ROUND $ROUNDS); do
     echo "==== Starting Round $ROUND ===="
 
-    # Training Phase
-    if [ $ROUND -eq 1 ]; then
-        for CLIENT in 1 2 3 4; do
-            echo "Training client $CLIENT from scratch"
-            python script_training.py \
-                --ModelRoot "${BASE_PATH}/client_${CLIENT}" \
-                --OutputFile "client${CLIENT}_local1.pt" \
-                --EpochNum $EPOCH \
-                --BatchSize 6 \
-                --DataRoot "../datasets/processed_${CLIENT}" \
-                --Dataset $DATASET \
-                --TextLogInterval 10 \
-                --IsTbLog False \
-                --ModelName $MODEL_NAME
-        done
-    else
-        for CLIENT in 1 2 3 4; do
-            RESUME_PATH="${BASE_PATH}/client_${CLIENT}/client${CLIENT}_combined${PREV}.pt"
-            if [ ! -f "$RESUME_PATH" ]; then
-                echo "Error: Resume path $RESUME_PATH does not exist!"
-                exit 1
-            fi
-            echo "Training client $CLIENT resuming from $RESUME_PATH"
-            python script_training.py \
+    # -----------------------
+    # 1) Local Training
+    # -----------------------
+    for CLIENT in 1 2 3 4; do
+        if [ "$ROUND" -eq 1 ]; then
+            echo "→ [Train] Client $CLIENT round $ROUND from scratch"
+            "$PYTHON_BIN" script_training.py \
                 --ModelRoot "${BASE_PATH}/client_${CLIENT}" \
                 --OutputFile "client${CLIENT}_local${ROUND}.pt" \
-                --ResumePath "$RESUME_PATH" \
                 --EpochNum $EPOCH \
-                --BatchSize 6 \
+                --BatchSize $BATCH_SIZE \
                 --DataRoot "../datasets/processed_${CLIENT}" \
                 --Dataset $DATASET \
-                --TextLogInterval 10 \
-                --IsTbLog False \
+                --TextLogInterval $TEXT_LOG_INT \
+                --IsTbLog $TB_LOG \
+                --ModelName $MODEL_NAME \
+                --PlotGraph True \
+                --Round $ROUND
+        else
+            PREV_ROUND=$((ROUND - 1))
+            RESUME="${BASE_PATH}/client_${CLIENT}/client${CLIENT}_combined${PREV_ROUND}.pt"
+            if [ ! -f "$RESUME" ]; then
+                echo "❌ Missing $RESUME" >&2
+                exit 1
+            fi
+            echo "→ [Train] Client $CLIENT round $ROUND resuming from $RESUME"
+            "$PYTHON_BIN" script_training.py \
+                --ModelRoot "${BASE_PATH}/client_${CLIENT}" \
+                --OutputFile "client${CLIENT}_local${ROUND}.pt" \
+                --ResumePath "$RESUME" \
                 --IsResume \
-                --ModelName $MODEL_NAME
-        done
+                --EpochNum $EPOCH \
+                --BatchSize $BATCH_SIZE \
+                --DataRoot "../datasets/processed_${CLIENT}" \
+                --Dataset $DATASET \
+                --TextLogInterval $TEXT_LOG_INT \
+                --IsTbLog $TB_LOG \
+                --ModelName $MODEL_NAME \
+                --PlotGraph True \
+                --Round $ROUND
+        fi
+    done
+
+    # -----------------------
+    # 2) Federated Averaging
+    # -----------------------
+    echo "→ [FedAvg] aggregating clients’ models"
+    INPUT_PATHS=()
+    OUTPUT_PATHS=()
+    for CLIENT in 1 2 3 4; do
+        inp="${BASE_PATH}/client_${CLIENT}/client${CLIENT}_local${ROUND}.pt"
+        out="${BASE_PATH}/client_${CLIENT}/client${CLIENT}_combined${ROUND}.pt"
+        if [ ! -f "$inp" ]; then
+            echo "❌ Missing $inp" >&2
+            exit 1
+        fi
+        INPUT_PATHS+=("$inp")
+        OUTPUT_PATHS+=("$out")
+    done
+
+    "$PYTHON_BIN" script_fedavg.py \
+        --input-paths ${INPUT_PATHS[*]} \
+        --output-paths ${OUTPUT_PATHS[*]} \
+        --ModelName $MODEL_NAME \
+        --Channels 1
+
+    # -----------------------
+    # 3) Testing
+    # -----------------------
+    echo "→ [Test] evaluating aggregated models (round $ROUND)"
+    echo "Round $ROUND" >> ../results/results.txt
+
+    if [ "$MODEL_NAME" == "AE" ]; then
+        CLIENTS=(1)
+    else
+        CLIENTS=(1 2 3 4)
     fi
 
-    # Federated Averaging Phase
-    INPUT_PATHS=""
-    OUTPUT_PATHS=""
-    for CLIENT in 1 2 3 4; do
-        INPUT_PATH="${BASE_PATH}/client_${CLIENT}/client${CLIENT}_local${ROUND}.pt"
-        if [ ! -f "$INPUT_PATH" ]; then
-            echo "Error: Input path $INPUT_PATH does not exist!"
+    for CLIENT in "${CLIENTS[@]}"; do
+        MODEL="${BASE_PATH}/client_${CLIENT}/client${CLIENT}_combined${ROUND}.pt"
+        if [ ! -f "$MODEL" ]; then
+            echo "❌ Missing $MODEL" >&2
             exit 1
         fi
-        OUTPUT_PATH="${BASE_PATH}/client_${CLIENT}/client${CLIENT}_combined${ROUND}.pt"
-        INPUT_PATHS="$INPUT_PATHS $INPUT_PATH"
-        OUTPUT_PATHS="$OUTPUT_PATHS $OUTPUT_PATH"
-    done
-    echo "Performing federated averaging with inputs: $INPUT_PATHS"
-    python script_fedavg.py \
-        --input-paths $INPUT_PATHS \
-        --output-paths $OUTPUT_PATHS \
-        --ModelName $MODEL_NAME
-
-    # Testing Phase
-    echo "Testing clients for Round $ROUND"
-    echo "Round $ROUND" >> ../results/results.txt
-    for CLIENT in 1 2 3 4; do
-        MODEL_PATH="${BASE_PATH}/client_${CLIENT}/client${CLIENT}_combined${ROUND}.pt"
-        if [ ! -f "$MODEL_PATH" ]; then
-            echo "Error: Model path $MODEL_PATH does not exist!"
-            exit 1
-        fi
-        echo "Testing client $CLIENT with model $MODEL_PATH"
-        python script_testing.py \
-            --ModelFilePath "$MODEL_PATH" \
+        echo "   • Client $CLIENT → $MODEL"
+        "$PYTHON_BIN" script_testing.py \
+            --ModelFilePath "$MODEL" \
             --DataRoot "../datasets/processed_${CLIENT}" \
             --Dataset $DATASET \
-            --ModelName $MODEL_NAME
+            --ModelName $MODEL_NAME \
+            --Round $ROUND
     done
+
     echo "==== Finished Round $ROUND ===="
 done

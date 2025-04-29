@@ -20,6 +20,7 @@ class TrainOptions():
         parser.add_argument('--ImgChnNum', type=int, default=1, help='Number of image channels')
         parser.add_argument('--FrameNum', type=int, default=16, help='Frames per video clip')
         parser.add_argument('--DataRoot', type=str, required=True, help='Path to dataset root')
+        parser.add_argument('--ProximalMu', type=float, default=0.0, help='μ strength for FedProx proximal term during local training')
 
         # Training config
         parser.add_argument('--BatchSize', type=int, default=14, help='Batch size')
@@ -42,6 +43,7 @@ class TrainOptions():
         # Resume training
         parser.add_argument('--IsResume', action='store_true', help='Resume training from checkpoint')
         parser.add_argument('--ResumePath', type=str, default='', help='Path to model checkpoint')
+        parser.add_argument('--Round', type=int, help='RoundNumber')
 
         self.initialized = True
         self.parser = parser

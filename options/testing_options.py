@@ -48,6 +48,7 @@ class TestOptions():
         parser.add_argument('--IsTbLog', type=str2bool, default=False, help='Log to TensorBoard')
         parser.add_argument('--PlotScores', type=str2bool, help='Plot anomaly scores', default=True)
         parser.add_argument('--PlotROC', type=str2bool, help='Plot ROC curve', default=True)
+        parser.add_argument('--Round', type=int, help='RoundNumber')
 
         self.initialized = True
         self.parser = parser

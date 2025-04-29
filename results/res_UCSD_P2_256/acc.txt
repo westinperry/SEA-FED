@@ -1,2 +1,0 @@
-../datasets/processed_4/UCSD_P2_256
-AUC: 0.7709057519512035
