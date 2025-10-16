@@ -1,4 +1,5 @@
-# SEA-FED - Personalized Gates for Federated Anomaly Detection
+# SEA-FED - Globally Attentive, Locally Personalized Autoencoders for Federated Anomaly Detection
+
 The project explores the application of federated learning techniques with a personalized approach, leveraging gating mechanisms to enhance anomaly detection across distributed systems.
 
 <p padding-bottom="0px"><strong>Author:</strong> Westin Perry <strong>College:</strong> Rochester Institute of Technology <strong>Email:</strong> wcp9372@g.rit.edu</p>
